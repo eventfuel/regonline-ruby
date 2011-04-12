@@ -10,4 +10,11 @@ group :development do
   gem "bundler", "~> 1.0.0"
   gem "jeweler", "~> 1.5.2"
   gem "rcov", ">= 0"
+  gem "webmock", "1.6.2"
+  gem "ruby-debug"
+  gem "vcr"
 end
+
+gem "savon", "0.9.1"
+gem "nokogiri"
+
