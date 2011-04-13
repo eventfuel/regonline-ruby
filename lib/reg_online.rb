@@ -1,5 +1,3 @@
-require 'savon'
-
 class RegOnline
   attr_reader :credentials
   def initialize(creds)
@@ -8,16 +6,17 @@ class RegOnline
   end
 
   def narrow_xml(xml_string, reg_id)
-    reg_index = xml_string.index("<RegId>#{reg_id}</RegId>")
+    reg_index = xml_string.index("&lt;RegId&gt;#{reg_id}&lt;/RegId&gt;")
     if reg_index
-      begin_index = xml_string.rindex("<Table1>", reg_index)
-      end_index = xml_string.index('</Table1>', reg_index) + "</Table>".length
+      begin_index = xml_string.rindex("&lt;Table1&gt;", reg_index)
+      end_index = xml_string.index('&lt;/Table1&gt;', reg_index) + "&lt;/Table&gt;".length
       xml_string[begin_index .. end_index]
     end
   end
 
   def hashify_tags(xml_string)
-    xml_snippit = Nokogiri::XML.parse(xml_string){|config| config.noblanks}
+    unescaped_xml = CGI::unescapeHTML(xml_string)
+    xml_snippit = Nokogiri::XML.parse(unescaped_xml){|config| config.noblanks}
     xml_elements = {}
     xml_snippit.children.children.each do |ele|
       xml_elements[ele.name] = ele.content
@@ -36,15 +35,16 @@ class RegOnline
   end
 
   def get_custom_user_info(reg_id, &block)
+
     client = Savon::Client.new  "https://www.regonline.com/activereports/RegOnline.asmx?wsdl"
+
     response = client.request :wsdl, :get_non_compressed_report do
       soap.body = soap_request_map(credentials[:username], credentials[:password]) 
     end
-    xml_response = response.to_hash[:get_non_compressed_report_response][:get_non_compressed_report_result]
-    xml_snippit = narrow_xml(xml_response, reg_id)
+
+    xml_snippit = narrow_xml(response.to_xml, reg_id)
     if xml_snippit
-      xml_hash = hashify_tags xml_snippit
-      block.call xml_hash
+      block.call( hashify_tags(xml_snippit))
       true
     end
   end

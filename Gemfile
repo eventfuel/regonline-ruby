@@ -13,6 +13,8 @@ group :development do
   gem "webmock", "1.6.2"
   gem "ruby-debug"
   gem "vcr"
+  gem "ruby-prof"
+  gem 'cgi_fast_escape'
 end
 
 gem "savon", "0.9.1"

@@ -31,5 +31,4 @@ describe "RegonlineRuby" do
       result.should be_true
     end
   end
-  
 end
