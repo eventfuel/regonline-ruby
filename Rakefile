@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "regonline-ruby"
   gem.homepage = "http://github.com/senior/regonline-ruby"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Ruby library for access RegOnline web services}
+  gem.description = %Q{Ruby library for access RegOnline web services}
   gem.email = "senior.ryan@gmail.com"
   gem.authors = ["Ryan Senior"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
