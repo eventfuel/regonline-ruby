@@ -9,8 +9,7 @@ Gem::Specification.new do |gem|
   gem.email    = 'ryan@thestrangeloop.com'
   gem.homepage = 'http://github.com/strangeloop/regonline-ruby'
   
-  # ensure the gem is built out of versioned files
   gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*',
-                  'README*', 'LICENSE*'] & `git ls-files -z`.split("\0")
+                  'README*'] & `git ls-files -z`.split("\0")
 end
 
