@@ -1,3 +1,5 @@
+lib = File.expand_path("../lib", __FILE__)
+
 Gem::Specification.new do |gem|
   gem.name    = 'regonline-ruby'
   gem.version = '0.0.1'
@@ -11,5 +13,8 @@ Gem::Specification.new do |gem|
   
   gem.files = Dir['Rakefile', '{bin,lib,man,test,spec}/**/*',
                   'README*'] & `git ls-files -z`.split("\0")
+  
+  gem.require_path = "lib"
+  
 end
 
